@@ -56,4 +56,23 @@ public class BasketService {
         basket.calculateTotalPrice();
         return basketRepository.save(basket);
     }
+
+    public Basket updateBasket(String id, BasketRequest request){
+        Basket savedBasket = getBasketById(id);
+        List<Product> products = new ArrayList<>();
+        request.products().forEach(productRequest -> {
+            PlatziProductResponse platziProductResponse = productService.getProductId(productRequest.id());
+            products.add(Product.builder()
+                    .id(platziProductResponse.id())
+                    .title(platziProductResponse.title())
+                    .price(platziProductResponse.price())
+                    .quantity(productRequest.quantity())
+                    .build());
+        });
+        savedBasket.setProducts(products);
+        savedBasket.calculateTotalPrice();
+        return basketRepository.save(savedBasket);
+
+    }
+
 }
