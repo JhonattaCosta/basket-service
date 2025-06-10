@@ -36,4 +36,10 @@ public class BasketController {
         return ResponseEntity.status(HttpStatus.OK).body(basketService.payBasket(id, request));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBasket(@PathVariable String id){
+        basketService.deleteBasket(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

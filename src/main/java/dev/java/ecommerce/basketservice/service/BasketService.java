@@ -84,4 +84,8 @@ public class BasketService {
 
     }
 
+    public void deleteBasket(String id){
+        basketRepository.delete(getBasketById(id));
+    }
+
 }
